@@ -1,0 +1,274 @@
+/* Загальні стилі */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    width: 95%;
+    background: #fff;
+    padding: 25px 30px;
+    margin: 10px auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Заголовок */
+h1 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 25px; /* Залишаємо більшим, щоб відділити заголовок */
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Панель навігації */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Уніфікований проміжок між кнопками */
+    margin-bottom: 15px; /* Уніфікований відступ від форми */
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+/* *** СТИЛІ ДЛЯ ФОРМИ CLASSIFIER PAGE (index.html) *** */
+form {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Уніфікований проміжок між рядками форми */
+    margin-bottom: 15px; /* Уніфікований зовнішній відступ */
+}
+
+.form-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Уніфікований горизонтальний відступ */
+    width: 100%; 
+    max-width: 800px;
+}
+
+/* Стиль для рядка з текстом і полем введення */
+.form-row.text-input-group {
+    flex-direction: column; 
+    align-items: center; 
+    gap: 5px; /* Невеликий відступ між текстом і полем */
+}
+
+/* Стилі для полів вводу (текст і textarea) */
+input[type="text"], textarea {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+input[type="text"] {
+    max-width: 220px; 
+}
+
+textarea {
+    min-width: 250px;
+    max-width: 500px;
+    height: 120px; 
+    resize: vertical;
+    margin: 0 auto; 
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    flex-shrink: 0; 
+    display: inline-block;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* *** СТИЛІ ДЛЯ ФОРМИ GRAPH PAGE (graph.html) *** */
+.graph-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Уніфікований проміжок між елементами */
+    flex-wrap: wrap; 
+    margin-bottom: 15px; /* Уніфікований зовнішній відступ */
+    padding: 10px;
+}
+.graph-form label {
+    flex-shrink: 0; 
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+    line-height: 2.2; 
+    margin-top: 5px; /* Зменшено вертикальний відступ між рядками форми */
+}
+
+/* Стилі для Datalist (фільтр імені) */
+.graph-form input[type="text"] {
+    min-width: 150px;
+    max-width: 200px;
+}
+
+
+/* *** СТИЛІ ДЛЯ ВИПАДАЮЧОГО СПИСКУ (SELECT) та DATALIST *** */
+select, input[list] {
+    padding: 10px 14px; 
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    /* Тільки для SELECT: */
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23007bff' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 16px 16px;
+    min-width: 200px;
+    display: inline-block;
+}
+
+select:focus, input[list]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+
+/* *** СТИЛІ ДЛЯ ВИВЕДЕННЯ РЕЗУЛЬТАТІВ (index.html) *** */
+
+.result {
+    margin-top: 15px; /* Уніфікований зовнішній відступ */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    font-size: 1.05rem;
+    font-weight: 500;
+    border: 1px solid transparent; 
+    transition: all 0.3s ease;
+}
+
+/* Висока Емпатія (4-5) */
+.result-high {
+    background-color: #e6f7ff; 
+    border-color: #007bff;
+    color: #004085;
+}
+
+/* Середня Емпатія (2-3) */
+.result-medium {
+    background-color: #fff3cd; 
+    border-color: #ffc107;
+    color: #856404;
+}
+
+/* Низька Емпатія (1) */
+.result-low {
+    background-color: #f8d7da; 
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+
+/* *** СТИЛІ ДЛЯ ГРАФІКУ *** */
+.graph-container {
+    margin-top: 15px; /* Уніфікований зовнішній відступ */
+    display: flex;
+    justify-content: center;
+}
+
+.graph-container img {
+    max-width: 700px; 
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* *** СТИЛІ ДЛЯ ІСТОРІЇ (Таблиця) *** */
+.table-wrapper {
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    margin-top: 15px; /* Уніфікований зовнішній відступ */
+    padding-top: 10px; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+th {
+    background-color: #0066ff;
+    color: white;
+    position: sticky;
+    top: 10px; 
+    z-index: 2;
+    border-radius: 5px 5px 0 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

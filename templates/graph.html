@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Графік Оцінок Емпатії</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Графік Оцінок Емпатії 📈</h1>
+    <div class="navigation">
+        <a href="{{ url_for('index') }}" class="nav-button">← До Класифікатора</a>
+        <a href="{{ url_for('history') }}" class="nav-button">Історія перевірок</a>
+    </div>
+
+    <form method="POST" action="/graph" class="graph-form">
+        
+        <label for="person_name">Ім'я людини:</label>
+        <input 
+            type="text" 
+            name="person_name" 
+            id="person_name" 
+            placeholder="Введіть ім'я"
+            value="{{ person_name_filter if person_name_filter else '' }}"
+            style="max-width: 150px;"
+        >
+        
+        <label for="time_range">Оберіть проміжок часу:</label>
+        <select name="time_range" id="time_range">
+            <option value="day" {% if time_range=='day' %}selected{% endif %}>Останні 24 години</option>
+            <option value="week" {% if time_range=='week' %}selected{% endif %}>Останній тиждень</option>
+            <option value="month" {% if time_range=='month' %}selected{% endif %}>Останній місяць</option>
+        </select>
+        
+        <button type="submit">Показати графік</button>
+    </form>
+
+    {% if graph_image %}
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <img src="data:image/png;base64,{{ graph_image }}" alt="Графік рівня емпатії з часом" style="max-width: 700px; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+    </div>
+    {% else %}
+    <p>Немає даних для побудови графіку за обраний проміжок часу.</p>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Історія Перевірок</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+.log-table {width:100%; border-collapse:collapse; margin-top:20px;}
+.log-table th, .log-table td {border:1px solid #e0e0e0; padding:10px; text-align:left;}
+.log-table th {background-color:#007bff; color:white; position:sticky; top:0;}
+.log-table tr:nth-child(even) {background-color:#f9f9f9;}
+.table-container {max-height:60vh; overflow-y:auto;}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Історія Перевірок Емпатії 📜</h1>
+    <div class="navigation">
+        <a href="{{ url_for('index', role=role) }}" class="nav-button">← До Класифікатора</a>
+        <a href="{{ url_for('graph') }}" class="nav-button">Графік оцінок</a>
+    </div>
+
+    {% if role == 'psychologist' %}
+    <form method="GET" action="{{ url_for('history') }}">
+        <input type="hidden" name="role" value="psychologist">
+        <label for="person_name">Фільтр за ім'ям:</label>
+        <input type="text" name="person_name" value="{{ person_name }}">
+        <button type="submit">Показати</button>
+    </form>
+    {% endif %}
+
+    {% if logs %}
+    <div class="table-container">
+        <table class="log-table">
+            <thead>
+                <tr>
+                    <th>Дата/Час</th>
+                    {% if role == 'psychologist' %}<th>Ім'я</th>{% endif %}
+                    <th>Введений Текст</th>
+                    <th>Клас Емпатії</th>
+                    <th>Впевненість (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    {% if role == 'psychologist' %}<td>{{ log.person_name }}</td>{% endif %}
+                    {% if message %}
+    <p style="color: #555; font-weight: 600; margin-top: 20px;">{{ message }}</p>
+{% endif %}
+
+                    <td>{{ log.text_input[:100] }}{% if log.text_input|length>100 %}...{% endif %}</td>
+                    <td>{{ log.predicted_label }}</td>
+                    <td>{{ "%.2f"|format(log.confidence) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>Наразі історія перевірок порожня.</p>
+    {% endif %}
+</div>
+</body>
+</html>

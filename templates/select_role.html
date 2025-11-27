@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вибір ролі</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Оберіть Роль</h1>
+        <form method="POST">
+            <select name="role" required>
+                <option value="">-- Виберіть роль --</option>
+                <option value="user">Особисте використання</option>
+                <option value="psychologist">Психолог</option>
+            </select>
+            <button type="submit">Підтвердити</button>
+        </form>
+    </div>
+</body>
+</html>

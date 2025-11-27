@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Класифікатор Емпатії RoBERTa</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Аналізатор Емпатії Тексту 💬</h1>
+
+    <div class="navigation">
+        <a href="{{ url_for('history', role=role) }}" class="nav-button">Історія перевірок</a>
+        <a href="{{ url_for('graph') }}" class="nav-button">Графік оцінок</a>
+    </div>
+    
+    <form method="POST" action="{{ url_for('predict', role=role) }}">
+        
+        <div class="form-row">
+            {% if role == 'psychologist' %}
+            <label for="person_name">Ім'я людини:</label>
+            <input type="text" name="person_name" id="person_name" placeholder="Введіть ім'я">
+            {% endif %}
+        </div>
+
+        <div class="form-row text-input-group">
+            <label for="text_input">Введіть текст для аналізу:</label>
+            <textarea name="text_input" id="text_input" placeholder="Введіть фразу для аналізу емпатії...">{{ original_text if original_text else '' }}</textarea>
+        </div>
+        
+        <button type="submit">Класифікувати</button>
+
+    </form>
+
+    {% if result %}
+        <div class="result {{ result_class | default('result-low') }}">{{ result | safe }}</div>
+    {% endif %}
+</div>
+</body>
+</html>
