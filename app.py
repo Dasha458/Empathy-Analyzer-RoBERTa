@@ -135,7 +135,7 @@ def predict():
         except Exception as e:
             db.session.rollback()
             print(f"Помилка при збереженні: {e}")
-            return render_template('index.html', result="Помилка БД. Будь ласка, переконайтесь, що ви видалили empathy_logs.db та перезапустили додаток.", role=role)
+            return render_template('index.html', result="Сталася внутрішня помилка. Спробуйте, будь ласка, пізніше.", role=role)
 
         result_text = f"""
             <p><strong>Результат аналізу:</strong></p>

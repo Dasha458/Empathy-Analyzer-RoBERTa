@@ -16,15 +16,18 @@
 
     <form method="POST" action="/graph" class="graph-form">
         
-        <label for="person_name">Ім'я людини:</label>
-        <input 
-            type="text" 
-            name="person_name" 
-            id="person_name" 
-            placeholder="Введіть ім'я"
-            value="{{ person_name_filter if person_name_filter else '' }}"
-            style="max-width: 150px;"
-        >
+        {# Показуємо поле вводу імені ТІЛЬКИ для психолога #}
+        {% if role == 'psychologist' %}
+            <label for="person_name">Ім'я людини:</label>
+            <input 
+                type="text" 
+                name="person_name" 
+                id="person_name" 
+                placeholder="Введіть ім'я"
+                value="{{ person_name_filter if person_name_filter else '' }}"
+                style="max-width: 150px;"
+            >
+        {% endif %}
         
         <label for="time_range">Оберіть проміжок часу:</label>
         <select name="time_range" id="time_range">
