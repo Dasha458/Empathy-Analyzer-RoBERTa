@@ -10,6 +10,8 @@
 .log-table th {background-color:#007bff; color:white; position:sticky; top:0;}
 .log-table tr:nth-child(even) {background-color:#f9f9f9;}
 .table-container {max-height:60vh; overflow-y:auto;}
+/* Стиль для повідомлення про відсутність записів */
+.message-box {color: #555; font-weight: 600; margin-top: 20px; padding: 10px; border-radius: 5px; background-color: #f0f0f0;}
 </style>
 </head>
 <body>
@@ -24,9 +26,13 @@
     <form method="GET" action="{{ url_for('history') }}">
         <input type="hidden" name="role" value="psychologist">
         <label for="person_name">Фільтр за ім'ям:</label>
-        <input type="text" name="person_name" value="{{ person_name }}">
+        <input type="text" id="person_name" name="person_name" value="{{ person_name_filter or '' }}">
         <button type="submit">Показати</button>
     </form>
+    {% endif %}
+
+    {% if message %}
+    <p class="message-box">{{ message }}</p>
     {% endif %}
 
     {% if logs %}
@@ -45,12 +51,8 @@
                 {% for log in logs %}
                 <tr>
                     <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    {% if role == 'psychologist' %}<td>{{ log.person_name }}</td>{% endif %}
-                    {% if message %}
-    <p style="color: #555; font-weight: 600; margin-top: 20px;">{{ message }}</p>
-{% endif %}
-
-                    <td>{{ log.text_input[:100] }}{% if log.text_input|length>100 %}...{% endif %}</td>
+                    {% if role == 'psychologist' %}<td>{{ log.person_name or 'Анонім' }}</td>{% endif %}
+                    <td>{{ log.text_input[:100] }}{% if log.text_input|length > 100 %}...{% endif %}</td>
                     <td>{{ log.predicted_label }}</td>
                     <td>{{ "%.2f"|format(log.confidence) }}</td>
                 </tr>
@@ -59,7 +61,9 @@
         </table>
     </div>
     {% else %}
-    <p>Наразі історія перевірок порожня.</p>
+    {% if not message %}
+    <p class="message-box">Наразі історія перевірок порожня.</p>
+    {% endif %}
     {% endif %}
 </div>
 </body>

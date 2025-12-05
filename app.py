@@ -165,23 +165,25 @@ def predict():
 @app.route('/history', methods=['GET', 'POST'])
 def history():
     role_filter = session.get('role', request.form.get('role', 'user'))
-    person_name_filter = request.form.get('person_name', None)
+    
+    person_name_filter = request.values.get('person_name', '').strip()
 
     query = EmpathyLog.query.filter(EmpathyLog.role == role_filter)
+    
     if person_name_filter and role_filter == 'psychologist':
-        query = query.filter(EmpathyLog.person_name == person_name_filter)
+        query = query.filter(EmpathyLog.person_name == person_name_filter) 
 
     logs = query.order_by(EmpathyLog.timestamp.desc()).all()
 
     if not logs:
+        display_name = person_name_filter if person_name_filter else "невідоме"
         message = (
-            f"Записи для імені '{person_name_filter}' не знайдено."
+            f"Записи для імені '{display_name}' не знайдено."
             if person_name_filter else "Історія порожня."
         )
-        return render_template('history.html', logs=[], message=message, role=role_filter)
+        return render_template('history.html', logs=[], message=message, role=role_filter, person_name_filter=person_name_filter)
 
-    return render_template('history.html', logs=logs, message=None, role=role_filter)
-
+    return render_template('history.html', logs=logs, message=None, role=role_filter, person_name_filter=person_name_filter)
 @app.route('/graph', methods=['GET', 'POST'])
 def graph():
     role = session.get('role', 'user')
